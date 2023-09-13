@@ -1,0 +1,40 @@
+version: '3.0'
+services:
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'python manage.py runserver 0.0.0.0:8000'
+    ports:
+      - 8000:8000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"      
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  queue:
+    container_name: queue
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: 'python consumer.py'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"     
+    depends_on:
+      - db
+      - backend
+
+  db:
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: admin
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - .dbdata:/var/lib/postgresql/data/
+    ports:
+      - 5435:5432
