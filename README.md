@@ -1,5 +1,7 @@
 # rabbit_django_flask
-Тестовый проект, в котором два приложения (на Django и Flask) взаимодействуют посредством RabbitMQ
+Тестовый проект, в котором два приложения (на Django и Flask) взаимодействуют посредством RabbitMQ.
+
+Код по видео https://youtu.be/ddrucr_aAzA?feature=shared с поправками на PostgreSQL, более свежие версии ПО.
 
 # Требования
 
